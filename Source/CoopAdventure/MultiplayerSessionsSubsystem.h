@@ -50,4 +50,7 @@ public:
 	
 	UPROPERTY(BlueprintAssignable)
 	FServerJoinDelegate JoinServerDel;
+
+	UPROPERTY(BlueprintReadWrite)
+	FString GameMapPath;
 };
