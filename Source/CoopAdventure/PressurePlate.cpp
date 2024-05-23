@@ -28,11 +28,23 @@ APressurePlate::APressurePlate()
 		TriggerMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 10.0f));
 	}
 
+	/*Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Mesh->SetupAttachment(RootComp);
+	Mesh->SetIsReplicated(true);
+
+	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("/Game/Stylized_Egypt/Meshes/building/SM_building_part_08.SM_building_part_08"));
+	if (MeshAsset.Succeeded())
+	{
+		Mesh->SetStaticMesh(MeshAsset.Object);
+		Mesh->SetRelativeScale3D(FVector(4.0f, 4.0f, 0.5f));
+		Mesh->SetRelativeLocation(FVector(0.0f, 0.0f, 7.2f));
+	}*/
+
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(RootComp);
 	Mesh->SetIsReplicated(true);
 
-	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("/Game/Stylized_Egypt/Meshes/building /SM_building_part_08.SM_building_part_08"));
+	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("/Game/Stylized_Egypt/Meshes/building/SM_building_part_08.SM_building_part_08"));
 	if (MeshAsset.Succeeded())
 	{
 		Mesh->SetStaticMesh(MeshAsset.Object);
@@ -57,5 +69,40 @@ void APressurePlate::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (HasAuthority())
+	{
+		TArray<AActor*> OverlappingActors;
+		AActor* TriggerActor = 0;
+		TriggerMesh->GetOverlappingActors(OverlappingActors);
+
+		for (int ActorIdx = 0; ActorIdx < OverlappingActors.Num(); ++ActorIdx)
+		{
+			AActor* A = OverlappingActors[ActorIdx];
+			if (A->ActorHasTag("TriggerActor"))
+			{
+				TriggerActor = A;
+				break;
+			}
+			//FString Msg = FString::Printf(TEXT("Name: %s"), *A->GetName());
+			//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, Msg);
+		}
+
+		if (TriggerActor)
+		{
+			if (!Activated)
+			{
+				Activated = true;
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, TEXT("Activated"));
+			}
+		}
+		else
+		{
+			if (Activated)
+			{
+				Activated = false;
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::White, TEXT("Deactivated"));
+			}
+		}
+	}
 }
 
