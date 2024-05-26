@@ -32,5 +32,8 @@ public:
 	UArrowComponent* Point2;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	UTransporter* Transporter;
 };
