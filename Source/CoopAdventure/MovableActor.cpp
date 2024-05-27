@@ -16,6 +16,7 @@ AMovableActor::AMovableActor()
 	Point1->SetupAttachment(RootComp);
 	Point1->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 
+
 	Point2 = CreateDefaultSubobject<UArrowComponent>(TEXT("Point2"));
 	Point2->SetupAttachment(RootComp);
 	Point2->SetRelativeLocation(FVector(0.0f, 0.0f, 300.0f));
