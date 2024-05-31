@@ -1,5 +1,6 @@
 #include "Transporter.h"
 #include "PressurePlate.h"
+#include "CollectableKey.h"
 
 UTransporter::UTransporter()
 {
@@ -41,13 +42,20 @@ void UTransporter::BeginPlay()
 		APressurePlate *PressurePlateActor =  Cast<APressurePlate>(TA);
 		if (PressurePlateActor)
 		{
-			PressurePlateActor->OnActivated.AddDynamic(this, &UTransporter::OnPressurePLateActivated);
-			PressurePlateActor->OnDeactivated.AddDynamic(this, &UTransporter::OnPressurePLateDeactivated);
+			PressurePlateActor->OnActivated.AddDynamic(this, &UTransporter::OnTriggerActorActivated);
+			PressurePlateActor->OnDeactivated.AddDynamic(this, &UTransporter::OnTriggerActorDeactivated);
+			continue;
+		}
+
+		ACollectableKey* KeyActor = Cast<ACollectableKey>(TA);
+		if (KeyActor)
+		{
+			KeyActor->OnCollected.AddDynamic(this, &UTransporter::OnTriggerActorActivated);
 		}
 	}
 }
 
-void UTransporter::OnPressurePLateActivated()
+void UTransporter::OnTriggerActorActivated()
 {
 	ActivatedTriggerCount++;
 
@@ -55,7 +63,7 @@ void UTransporter::OnPressurePLateActivated()
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::White, Msg);
 }
 
-void UTransporter::OnPressurePLateDeactivated()
+void UTransporter::OnTriggerActorDeactivated()
 {
 	ActivatedTriggerCount--;
 

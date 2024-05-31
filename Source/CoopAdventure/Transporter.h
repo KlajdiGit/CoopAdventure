@@ -44,8 +44,8 @@ public:
 	void SetPoints(FVector Point1, FVector Point2);
 
 	UFUNCTION()
-	void OnPressurePLateActivated();
+	void OnTriggerActorActivated();
 
 	UFUNCTION()
-	void OnPressurePLateDeactivated();
+	void OnTriggerActorDeactivated();
 };
