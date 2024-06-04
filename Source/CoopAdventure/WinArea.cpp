@@ -34,8 +34,14 @@ void AWinArea::Tick(float DeltaTime)
 			if (WinCondition)
 			{
 				UE_LOG(LogTemp, Display, TEXT("WIN!!!"));
+				MulticastRPCWin();
 			}
 		}
 	}
+}
+
+void AWinArea::MulticastRPCWin_Implementation()
+{
+	OnWinCondition.Broadcast();
 }
 
