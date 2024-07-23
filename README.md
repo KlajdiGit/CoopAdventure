@@ -8,12 +8,14 @@ When launching the game, players are presented with a menu where they can create
 Keys are collected by using movable platforms, which can be activated when one player stands on particular trigger platforms connected to that movable platform, allowing the other player to move. After collecting all three keys, players can enter the pyramid and navigate to the win area to complete the game.
 
 ## Objective
-The main objective of this project is to demonstrate the core concepts of creating a multiplayer game with Unreal Engine 5.
-The  main concepts learned include:
-   RPC calls and different types
-   Replication
-   Understanding game instances and online subsystem
-   How to join and create a server
+
+The main objective of this project was to understand the core concepts of multiplayer game with Unreal Engine 5. The main concepts learned:
+
+- RPC calls and different types
+- Replication
+- Understanding game instances and online subsystem
+- How to join and create a server
+
 
 ## Installation
 
